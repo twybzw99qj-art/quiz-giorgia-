@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Per Giorgia ❤️</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('stadio.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+.overlay {
+    background: rgba(0,0,0,0.75);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box {
+    background: rgba(0,0,0,0.85);
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 540px;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 25px;
+}
+input {
+    padding: 12px;
+    width: 85%;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+}
+button {
+    margin-top: 20px;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#error {
+    color: #ff9a9a;
+    margin-top: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="canzone.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay">
+<div class="box" id="quiz">
+<h1>Una piccola sfida per te, Giorgia ❤️</h1>
+
+<p id="question">
+Per il tuo compleanno ho preparato qualcosa di speciale.<br><br>
+Ma prima… voglio metterti un po’ alla prova 😉<br><br>
+<b>Domanda 1:</b><br>
+In che mese ci siamo conosciuti?
+</p>
+
+<input type="text" id="answer" placeholder="Scrivi qui">
+<br>
+<button onclick="check()">Continua</button>
+<p id="error"></p>
+</div>
+</div>
+
+<script>
+let step = 1;
+
+function check(){
+    let a = document.getElementById("answer").value.toLowerCase().trim();
+    let q = document.getElementById("question");
+    let e = document.getElementById("error");
+
+    // Domande personali
+    if(step === 1 && a.length > 2){
+        step++;
+        q.innerHTML = "<b>Domanda 2:</b><br>Qual è una cosa che ci fa sempre ridere insieme?";
+        reset();
+    }
+    else if(step === 2 && a.length > 3){
+        step++;
+        q.innerHTML = "<b>Domanda 3:</b><br>Se potessimo partire domani, che città sceglieresti?";
+        reset();
+    }
+
+    // Inizio calcio (ancora generico)
+    else if(step === 3 && a.length > 2){
+        step++;
+        q.innerHTML = "<b>Domanda 4:</b><br>Quanti giocatori scendono in campo per una squadra di calcio?";
+        reset();
+    }
+    else if(step === 4 && (a === "11" || a.includes("undici"))){
+        step++;
+        q.innerHTML = "<b>Domanda 5:</b><br>Come si chiama il ruolo di chi difende la porta?";
+        reset();
+    }
+    else if(step === 5 && a.includes("portiere")){
+        step++;
+        q.innerHTML = "<b>Domanda 6:</b><br>Qual è il colore principale della Juventus?";
+        reset();
+    }
+    else if(step === 6 && (a.includes("bianco") || a.includes("nero"))){
+        step++;
+        q.innerHTML = "<b>Ultima domanda ❤️</b><br>Chi è la persona che ti porterà a vivere questa sorpresa?";
+        reset();
+    }
+    else if(step === 7 && (a.includes("tu") || a.includes("amore"))){
+        document.getElementById("quiz").innerHTML = `
+        <h1>🎁 SORPRESA 🎁</h1>
+        <p>Ora posso dirtelo davvero…</p>
+        <h2>🎟️ ANDIAMO A VEDERE LA JUVENTUS ALLO STADIO ⚽🖤🤍</h2>
+        <p>Buon compleanno Giorgia ❤️</p>
+        `;
+    }
+    else {
+        e.innerText = "❌ Non è corretto… riprova 😉";
+    }
+}
+
+function reset(){
+    document.getElementById("answer").value = "";
+    document.getElementById("error").innerText = "";
+}
+</script>
+
+</body>
+</html>
